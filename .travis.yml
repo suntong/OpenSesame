@@ -36,7 +36,7 @@ script:
   - go test -v ./...
 
   - go get github.com/mitchellh/gox
-  - gox -ldflags="-X main.date=$DATE_BUILD" -osarch="linux/386 linux/amd64 darwin/amd64 windows/amd64" -output="out/{{.Dir}}-{{.OS}}-{{.Arch}}"
+  - gox -ldflags="-X main.date=$DATE_BUILD" -osarch="linux/amd64 darwin/amd64 windows/amd64" -output="out/{{.Dir}}-{{.OS}}-{{.Arch}}"
 # linux/386 linux/amd64 linux/arm darwin/amd64 darwin/386 windows/amd64 windows/386
 # e.g.: out/OpenSesame-linux-amd64
 
