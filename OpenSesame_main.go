@@ -8,6 +8,8 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
 ////////////////////////////////////////////////////////////////////////////
@@ -30,6 +32,10 @@ func main() {
 	}
 	rand.Seed(time.Now().UTC().UnixNano())
 	app := fiber.New()
+
+	// Middleware
+	app.Use(recover.New())
+	app.Use(logger.New())
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World 👋!")
