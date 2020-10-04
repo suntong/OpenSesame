@@ -21,7 +21,7 @@ Options:
     Type: string
     Flag: port
     Usage: listening port
-    Value: '"18888"'
+    Value: '":18888"'
 
   - Name: Path
     Type: string

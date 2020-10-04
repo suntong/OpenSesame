@@ -33,7 +33,7 @@ var Opts Options
 func init() {
 
 	// set default values for command line parameters
-	flag.StringVar(&Opts.Port, "port", "18888",
+	flag.StringVar(&Opts.Port, "port", ":18888",
 		"listening port")
 	flag.StringVar(&Opts.Path, "path", "./",
 		"path to serve files from")
