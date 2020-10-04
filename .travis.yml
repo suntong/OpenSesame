@@ -32,7 +32,7 @@ script:
 
   - go get -t -v ./...
   - go build -v -ldflags="-X main.date=$DATE_BUILD"
-  - OpenSesame
+  - OpenSesame -help
   - go test -v ./...
 
   - go get github.com/mitchellh/gox
