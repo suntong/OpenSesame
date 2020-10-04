@@ -54,6 +54,7 @@ func main() {
 // support functions
 
 func randInt(min int, max int) int {
+	// #nosec Use of weak random number generator (instead of crypto/rand)
 	return min + rand.Intn(max-min)
 }
 
