@@ -13,7 +13,7 @@ UsageSummary: ""
 
 UsageLead: "\\nUsage:\\n %s [flags..]\\n\\nFlags:\\n\\n"
 
-UsageEnd: "\\n"
+UsageEnd: "\\nWill serve the files from the given path via web server\\nof the given port using a one-time random path.\\n\\nExit and restart will serve from another random path.\\n\\nThe `-port` / `-path` can be overridden by environment variable(s)\\n `OPENSESAME_PORT` / `OPENSESAME_PATH`\\n"
 
 Options:
 
@@ -29,3 +29,8 @@ Options:
     Usage: path to serve files from
     Value: '"./"'
 
+  - Name: Help
+    Type: bool
+    Flag: help
+    Usage: show usage help
+    Value: false

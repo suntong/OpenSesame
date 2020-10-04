@@ -19,6 +19,7 @@ const progname = "OpenSesame" // os.Args[0]
 type Options struct {
 	Port string // listening port
 	Path string // path to serve files from
+	Help bool   // show usage help
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -37,6 +38,8 @@ func init() {
 		"listening port")
 	flag.StringVar(&Opts.Path, "path", "./",
 		"path to serve files from")
+	flag.BoolVar(&Opts.Help, "help", false,
+		"show usage help")
 
 	// Now override those default values from environment variables
 	if len(Opts.Port) == 0 ||
@@ -57,6 +60,6 @@ func Usage() {
 		progname)
 	flag.PrintDefaults()
 	fmt.Fprintf(os.Stderr,
-		"\n")
+		"\nWill serve the files from the given path via web server\nof the given port using a one-time random path.\n\nExit and restart will serve from another random path.\n\nThe `-port` / `-path` can be overridden by environment variable(s)\n `OPENSESAME_PORT` / `OPENSESAME_PATH`\n")
 	os.Exit(0)
 }

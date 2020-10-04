@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"math/rand"
@@ -23,6 +24,10 @@ const MaxUint32 = int(^uint32(0))
 
 // Function main
 func main() {
+	flag.Parse()
+	if Opts.Help {
+		Usage()
+	}
 	rand.Seed(time.Now().UTC().UnixNano())
 	app := fiber.New()
 
