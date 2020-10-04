@@ -1,0 +1,31 @@
+# program name, name for the executable
+ProgramName: OpenSesame
+
+PackageName: main
+
+# Name of the structure to hold the values for/from commandline
+StructName: Options
+# The actual variable that hold the commandline paramter values
+StructVar: Opts
+
+# Whether to use the USAGE_SUMMARY in Usage help
+UsageSummary: ""
+
+UsageLead: "\\nUsage:\\n %s [flags..]\\n\\nFlags:\\n\\n"
+
+UsageEnd: "\\n"
+
+Options:
+
+  - Name: Port
+    Type: string
+    Flag: port
+    Usage: listening port
+    Value: '"18888"'
+
+  - Name: Path
+    Type: string
+    Flag: path
+    Usage: path to serve files from
+    Value: '"./"'
+
