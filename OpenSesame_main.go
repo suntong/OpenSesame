@@ -30,13 +30,13 @@ func main() {
 		return c.SendString("Hello, World 👋!")
 	})
 	d := fmt.Sprintf("/%d", randInt(MinVal, MaxUint32))
-	log.Printf("Serving at http://localhost:3000" + d)
+	log.Printf("Serving at http://localhost%s%s", Opts.Port, d)
 
-	app.Static(d, "./", fiber.Static{
+	app.Static(d, Opts.Path, fiber.Static{
 		Browse: true,
 	})
 
-	log.Fatal(app.Listen(":3000"))
+	log.Fatal(app.Listen(Opts.Port))
 }
 
 //==========================================================================
