@@ -5,6 +5,9 @@ language: go
 
 language: go
 
+go:
+- 1.15.x
+
 env:
   global:
     # Package setup (Ref: http://pkg-go.alioth.debian.org/packaging.html)
