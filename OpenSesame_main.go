@@ -1,6 +1,6 @@
 package main
 
-//go:generate sh -v OpenSesame_cliGen.sh
+//go:generate sh OpenSesame_cliGen.sh
 
 import (
 	"flag"

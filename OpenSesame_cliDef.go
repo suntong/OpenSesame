@@ -53,11 +53,14 @@ func init() {
 
 }
 
+const USAGE_SUMMARY = "  -port\tlistening port (OPENSESAME_PORT)\n  -path\tpath to serve files from (OPENSESAME_PATH)\n  -help\tshow usage help (OPENSESAME_HELP)\n\nDetails:\n\n"
+
 // Usage function shows help on commandline usage
 func Usage() {
 	fmt.Fprintf(os.Stderr,
 		"\nUsage:\n %s [flags..]\n\nFlags:\n\n",
 		progname)
+	fmt.Fprintf(os.Stderr, USAGE_SUMMARY)
 	flag.PrintDefaults()
 	fmt.Fprintf(os.Stderr,
 		"\nWill serve the files from the given path via web server\nof the given port using a one-time random path.\n\nExit and restart will serve from another random path.\n\nThe `-port` / `-path` can be overridden by environment variable(s)\n `OPENSESAME_PORT` / `OPENSESAME_PATH`\n")

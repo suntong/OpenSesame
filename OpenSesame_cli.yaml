@@ -9,7 +9,7 @@ StructName: Options
 StructVar: Opts
 
 # Whether to use the USAGE_SUMMARY in Usage help
-UsageSummary: ""
+UsageSummary: "TRUE"
 
 UsageLead: "\\nUsage:\\n %s [flags..]\\n\\nFlags:\\n\\n"
 

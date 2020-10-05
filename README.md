@@ -21,6 +21,12 @@ Usage:
 
 Flags:
 
+  -port listening port (OPENSESAME_PORT)
+  -path path to serve files from (OPENSESAME_PATH)
+  -help show usage help
+
+Details:
+
   -help
         show usage help
   -path string
