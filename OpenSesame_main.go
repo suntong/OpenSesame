@@ -1,5 +1,7 @@
 package main
 
+//go:generate sh -v OpenSesame_cliGen.sh
+
 import (
 	"flag"
 	"fmt"
