@@ -33,7 +33,9 @@ func main() {
 		Usage()
 	}
 	rand.Seed(time.Now().UTC().UnixNano())
-	app := fiber.New()
+	app := fiber.New(fiber.Config{
+		DisableStartupMessage: true,
+	})
 
 	// Middleware
 	app.Use(recover.New())
