@@ -17,8 +17,8 @@ import (
 ////////////////////////////////////////////////////////////////////////////
 // Constant and data type/structure definitions
 
-const MinVal = 1000000000
-const MaxUint32 = int(^uint32(0))
+const minVal = 1000000000
+const maxUint32 = int(^uint32(0))
 
 ////////////////////////////////////////////////////////////////////////////
 // Global variables definitions
@@ -44,7 +44,7 @@ func main() {
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World 👋!")
 	})
-	d := fmt.Sprintf("/%d", randInt(MinVal, MaxUint32))
+	d := fmt.Sprintf("/%d", randInt(minVal, maxUint32))
 	log.Printf("Serving at http://localhost%s%s", Opts.Port, d)
 
 	app.Static(d, Opts.Path, fiber.Static{
