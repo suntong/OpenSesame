@@ -1,18 +1,15 @@
 
-[![MIT License](http://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![GoDoc](https://godoc.org/github.com/suntong/OpenSesame?status.svg)](http://godoc.org/github.com/suntong/OpenSesame)
-[![Go Report Card](https://goreportcard.com/badge/github.com/suntong/OpenSesame)](https://goreportcard.com/report/github.com/suntong/OpenSesame)
-[![travis Status](https://travis-ci.org/suntong/OpenSesame.svg?branch=master)](https://travis-ci.org/suntong/OpenSesame)
+{{render "license/shields" . "License" "MIT"}}
+{{template "badge/godoc" .}}
+{{template "badge/goreport" .}}
+{{template "badge/travis" .}}
 [![PoweredBy Go Easy Wireframe](https://github.com/go-easygen/wireframe/blob/master/PoweredBy-WireFrame-R.svg)](http://godoc.org/github.com/go-easygen/wireframe)
 
-# TOC
-- [OpenSesame - One-time based file sharing](#opensesame---one-time-based-file-sharing)
-  - [Usage](#usage)
-  - [Author(s)](#author(s))
+# {{toc 5}}
 
-# OpenSesame - One-time based file sharing
+# {{.Name}} - One-time based file sharing
 
-The `OpenSesame` is for sharing files temporarily. If you have some big files that you don't want to host anywhere else, you can spin up `OpenSesame` to serve those shared files directly from your box using a random path/url, then close it down after the other party have grabbed them. The url is only good for one-time, and will become useless even if it leaked later.
+The `{{.Name}}` is for sharing files temporarily. If you have some big files that you don't want to host anywhere else, you can spin up `{{.Name}}` to serve those shared files directly from your box using a random path/url, then close it down after the other party have grabbed them. The url is only good for one-time, and will become useless even if it leaked later.
 
 
 ## Usage
@@ -60,12 +57,12 @@ The `-port` / `-path` can be overridden by environment variable(s)
 
 ## Author(s)
 
-The `OpenSesame` is brought you by
+The `{{.Name}}` is brought you by
 
 Tong SUN  
 ![suntong from cpan.org](https://img.shields.io/badge/suntong-%40cpan.org-lightgrey.svg "suntong from cpan.org")
 
-and its [contributor](https://github.com/suntong/OpenSesame/graphs/contributors).
+and its [contributor](https://github.com/suntong/{{.Name}}/graphs/contributors).
 
 _Powered by_ [**Go Easy WireFrame**](https://github.com/go-easygen/wireframe),  [![PoweredBy WireFrame](https://github.com/go-easygen/wireframe/blob/master/PoweredBy-WireFrame-Y.svg)](http://godoc.org/github.com/go-easygen/wireframe), the _one-stop wire-framing solution_ for Go cli based projects, from start to deploy.
 
