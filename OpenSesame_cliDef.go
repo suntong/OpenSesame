@@ -41,6 +41,7 @@ func init() {
 	flag.BoolVar(&Opts.Help, "help", false,
 		"show usage help")
 
+	exists := false
 	// Now override those default values from environment variables
 	if len(Opts.Port) == 0 ||
 		len(os.Getenv("OPENSESAME_PORT")) != 0 {
@@ -50,17 +51,20 @@ func init() {
 		len(os.Getenv("OPENSESAME_PATH")) != 0 {
 		Opts.Path = os.Getenv("OPENSESAME_PATH")
 	}
+	if _, exists = os.LookupEnv("OPENSESAME_HELP"); Opts.Help || exists {
+		Opts.Help = true
+	}
 
 }
 
-const USAGE_SUMMARY = "  -port\tlistening port (OPENSESAME_PORT)\n  -path\tpath to serve files from (OPENSESAME_PATH)\n  -help\tshow usage help (OPENSESAME_HELP)\n\nDetails:\n\n"
+const usageSummary = "  -port\tlistening port (OPENSESAME_PORT)\n  -path\tpath to serve files from (OPENSESAME_PATH)\n  -help\tshow usage help (OPENSESAME_HELP)\n\nDetails:\n\n"
 
 // Usage function shows help on commandline usage
 func Usage() {
 	fmt.Fprintf(os.Stderr,
 		"\nUsage:\n %s [flags..]\n\nFlags:\n\n",
 		progname)
-	fmt.Fprintf(os.Stderr, USAGE_SUMMARY)
+	fmt.Fprintf(os.Stderr, usageSummary)
 	flag.PrintDefaults()
 	fmt.Fprintf(os.Stderr,
 		"\nWill serve the files from the given path via web server\nof the given port using a one-time random path.\n\nExit and restart will serve from another random path.\n\nThe `-port` / `-path` can be overridden by environment variable(s)\n `OPENSESAME_PORT` / `OPENSESAME_PATH`\n")
