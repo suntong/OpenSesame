@@ -44,7 +44,11 @@ func main() {
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World 👋!")
 	})
-	d := fmt.Sprintf("/%d", randInt(minVal, maxUint32))
+	r := randInt(minVal, maxUint32)
+	if Opts.Fixed != 0 {
+		r = Opts.Fixed
+	}
+	d := fmt.Sprintf("/%d", r)
 	log.Printf("Serving at http://localhost%s%s", Opts.Port, d)
 
 	app.Static(d, Opts.Path, fiber.Static{

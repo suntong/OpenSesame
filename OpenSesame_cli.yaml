@@ -29,6 +29,12 @@ Options:
     Usage: path to serve files from
     Value: '"./"'
 
+  - Name: Fixed
+    Type: int
+    Flag: fx
+    Usage: 'fixed web path # to serve files with'
+    Value: 0
+
   - Name: Help
     Type: bool
     Flag: help

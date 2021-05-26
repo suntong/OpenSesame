@@ -17,9 +17,10 @@ const progname = "OpenSesame" // os.Args[0]
 
 // The Options struct defines the structure to hold the commandline values
 type Options struct {
-	Port string // listening port
-	Path string // path to serve files from
-	Help bool   // show usage help
+	Port  string // listening port
+	Path  string // path to serve files from
+	Fixed int    // fixed web path # to serve files with
+	Help  bool   // show usage help
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -38,6 +39,8 @@ func init() {
 		"listening port")
 	flag.StringVar(&Opts.Path, "path", "./",
 		"path to serve files from")
+	flag.IntVar(&Opts.Fixed, "fx", 0,
+		"fixed web path # to serve files with")
 	flag.BoolVar(&Opts.Help, "help", false,
 		"show usage help")
 
@@ -57,7 +60,7 @@ func init() {
 
 }
 
-const usageSummary = "  -port\tlistening port (OPENSESAME_PORT)\n  -path\tpath to serve files from (OPENSESAME_PATH)\n  -help\tshow usage help (OPENSESAME_HELP)\n\nDetails:\n\n"
+const usageSummary = "  -port\tlistening port (OPENSESAME_PORT)\n  -path\tpath to serve files from (OPENSESAME_PATH)\n  -fx\tfixed web path # to serve files with (OPENSESAME_FX)\n  -help\tshow usage help (OPENSESAME_HELP)\n\nDetails:\n\n"
 
 // Usage function shows help on commandline usage
 func Usage() {
