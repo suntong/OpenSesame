@@ -7,6 +7,8 @@
 # CI/CD
 .travis.yml export-ignore
 .gitlab-ci.yml export-ignore
+.github export-ignore
+.goreleaser.yaml export-ignore
 
 ## This project
 OpenSesame_proj.yaml export-ignore
