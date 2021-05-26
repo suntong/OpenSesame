@@ -7,6 +7,6 @@
 # CI/CD
 .travis.yml export-ignore
 .gitlab-ci.yml export-ignore
-bintray-*.json export-ignore
+
 ## This project
 OpenSesame_proj.yaml export-ignore
