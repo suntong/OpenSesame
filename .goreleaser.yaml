@@ -1,4 +1,10 @@
 project_name: OpenSesame
+
+# Packaging only the binaries, only the binary will be added to the archive.
+archives:
+- files:
+  - none*
+
 builds:
   - env: [CGO_ENABLED=0]
     goos:
@@ -6,6 +12,7 @@ builds:
       - windows
     goarch:
       - amd64
+
 nfpms:
 - maintainer: Tong Sun <suntong@cpan.org>
   description: Open Sesame project.
