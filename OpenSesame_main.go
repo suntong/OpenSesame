@@ -28,6 +28,11 @@ const maxUint32 = int(^uint32(0))
 
 // Function main
 func main() {
+	// define flags
+	initVars()
+	// popoulate flag variables from ENV
+	initVals()
+	// popoulate flag variables from cli
 	flag.Parse()
 	if Opts.Help {
 		Usage()
