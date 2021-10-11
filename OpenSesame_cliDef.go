@@ -32,7 +32,7 @@ var Opts Options
 ////////////////////////////////////////////////////////////////////////////
 // Commandline definitions
 
-func init() {
+func initVars() {
 
 	// set default values for command line parameters
 	flag.StringVar(&Opts.Port, "port", ":18888",
@@ -43,7 +43,9 @@ func init() {
 		"fixed web path # to serve files with")
 	flag.BoolVar(&Opts.Help, "help", false,
 		"show usage help")
+}
 
+func initVals() {
 	exists := false
 	// Now override those default values from environment variables
 	if len(Opts.Port) == 0 ||
