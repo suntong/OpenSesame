@@ -47,14 +47,26 @@ func main() {
 	app.Use(logger.New())
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World 👋!")
+		return c.SendString("Hello World 👋, Private Only!")
 	})
+	app.Get("/healthz", healthzHandler)
+
 	r := randInt(minVal, maxUint32)
 	if Opts.Fixed != 0 {
 		r = Opts.Fixed
 	}
-	d := fmt.Sprintf("/%d", r)
-	log.Printf("Serving at http://localhost%s%s", Opts.Port, d)
+	// web path root part
+	pr := fmt.Sprintf("%d", r)
+	// download & upload path, upload api path
+	d, u, ulapi := "/"+pr+"d", "/"+pr+"u", "/upload"+pr
+	log.Printf("Serving at http://localhost%s, with\n\t\t download path %s\n\t\t upload path %s",
+		Opts.Port, d, u)
+
+	app.Get(u, func(c *fiber.Ctx) error {
+		// Disable compression
+		return c.SendFile("./static/upload.html", false)
+	})
+	app.Post(ulapi, uploadHandler)
 
 	app.Static(d, Opts.Path, fiber.Static{
 		Browse: true,
