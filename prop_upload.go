@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -20,16 +21,16 @@ func uploadHandler(c *fiber.Ctx) error {
 
 	// Loop through files:
 	for _, file := range files {
-		fmt.Println(file.Filename, file.Size, file.Header["Content-Type"][0])
-		// => "tutorial.pdf" 360641 "application/pdf"
+		log.Println(file.Filename, file.Header["Content-Type"][0], file.Size)
+		// => "tutorial.mkv" "video/x-matroska" 2795037
 
 		// Save the files to disk:
-		err := c.SaveFile(file, fmt.Sprintf("./%s", file.Filename))
+		err := c.SaveFile(file, fmt.Sprintf("%s/%s", uploadPath, file.Filename))
 
 		// Check for errors
 		if err != nil {
 			return err
 		}
 	}
-	return nil
+	return c.SendString("Upload(s) successful")
 }

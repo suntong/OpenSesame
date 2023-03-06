@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"math/rand"
+	"os"
 	"regexp"
 	"time"
 
@@ -22,6 +23,8 @@ import (
 const minVal = 1000000000
 const maxUint32 = int(^uint32(0))
 
+const uploadPath = "./uploads"
+
 ////////////////////////////////////////////////////////////////////////////
 // Global variables definitions
 
@@ -30,6 +33,11 @@ const maxUint32 = int(^uint32(0))
 
 // Function main
 func main() {
+	err := os.MkdirAll(uploadPath, os.ModePerm)
+	if err != nil {
+		log.Fatal("Error ", err)
+	}
+
 	// define flags
 	initVars()
 	// popoulate flag variables from ENV
