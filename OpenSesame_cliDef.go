@@ -72,6 +72,6 @@ func Usage() {
 	fmt.Fprintf(os.Stderr, usageSummary)
 	flag.PrintDefaults()
 	fmt.Fprintf(os.Stderr,
-		"\nWill serve the files from the given path via web server\nof the given port using a one-time random path.\n\nExit and restart will serve from another random path.\n\nThe `-port` / `-path` can be overridden by environment variable(s)\n `OPENSESAME_PORT` / `OPENSESAME_PATH`\n")
+		"\nWill serve the files from the given path via web server\nof the given port using a one-time random path.\n- downloads are served from such path + 'd'\n- upload is also possible from such path + 'u'\n\nExit and restart will serve from another random path.\n\nThe `-port` / `-path` can be overridden by environment variable(s)\n `OPENSESAME_PORT` / `OPENSESAME_PATH`\n")
 	os.Exit(0)
 }
