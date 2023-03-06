@@ -5,8 +5,10 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"math/rand"
+	"regexp"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -59,12 +61,15 @@ func main() {
 	pr := fmt.Sprintf("%d", r)
 	// download & upload path, upload api path
 	d, u, ulapi := "/"+pr+"d", "/"+pr+"u", "/upload"+pr
-	log.Printf("Serving at http://localhost%s, with\n\t\t download path %s\n\t\t upload path %s",
+	log.Printf("Serving at http://localhost%s, with\n\t\t download path %s (http://localhost%[1]s%[2]s)\n\t\t upload path %s",
 		Opts.Port, d, u)
 
+	// read the whole body file
+	b, _ := ioutil.ReadFile("./static/upload.html")
+	b = regexp.MustCompile(`RAND_NUM`).ReplaceAll(b, []byte(pr))
 	app.Get(u, func(c *fiber.Ctx) error {
-		// Disable compression
-		return c.SendFile("./static/upload.html", false)
+		c.Set("Content-Type", "text/html")
+		return c.Send(b)
 	})
 	app.Post(ulapi, uploadHandler)
 
