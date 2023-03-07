@@ -10,7 +10,7 @@
 
 The `{{.Name}}` is for sharing files temporarily. If you have some big files that you don't want to host anywhere else, you can spin up `{{.Name}}` to serve those shared files directly from your box using a random path/url, then close it down after the other party have grabbed them. The url is only good for one-time, and will become useless even if it leaked later.
 
-From v1.0.8 and up, uploading is possible too.
+From v1.1.0 and up, uploading is possible too.
 
 
 
