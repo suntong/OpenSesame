@@ -9,6 +9,7 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"path/filepath"
 	"regexp"
 	"time"
 
@@ -23,7 +24,7 @@ import (
 const minVal = 1000000000
 const maxUint32 = int(^uint32(0))
 
-const uploadPath = "./uploads"
+var uploadPath = "./uploads"
 
 ////////////////////////////////////////////////////////////////////////////
 // Global variables definitions
@@ -33,11 +34,6 @@ const uploadPath = "./uploads"
 
 // Function main
 func main() {
-	err := os.MkdirAll(uploadPath, os.ModePerm)
-	if err != nil {
-		log.Fatal("Error ", err)
-	}
-
 	// define flags
 	initVars()
 	// popoulate flag variables from ENV
@@ -47,6 +43,13 @@ func main() {
 	if Opts.Help {
 		Usage()
 	}
+
+	uploadPath = filepath.Clean(filepath.Clean(Opts.Path) + "/" + uploadPath)
+	err := os.MkdirAll(uploadPath, os.ModePerm)
+	if err != nil {
+		log.Fatal("Error ", err)
+	}
+
 	rand.Seed(time.Now().UTC().UnixNano())
 	app := fiber.New(fiber.Config{
 		DisableStartupMessage: true,
