@@ -3,9 +3,9 @@ package main
 //go:generate sh OpenSesame_cliGen.sh
 
 import (
+	"embed"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"math/rand"
 	"os"
@@ -25,6 +25,9 @@ const minVal = 1000000000
 const maxUint32 = int(^uint32(0))
 
 var uploadPath = "./uploads"
+
+//go:embed static/upload.html
+var f embed.FS
 
 ////////////////////////////////////////////////////////////////////////////
 // Global variables definitions
@@ -76,7 +79,7 @@ func main() {
 		Opts.Port, d, u)
 
 	// read the whole body file
-	b, _ := ioutil.ReadFile("./static/upload.html")
+	b, _ := f.ReadFile("static/upload.html")
 	b = regexp.MustCompile(`RAND_NUM`).ReplaceAll(b, []byte(pr))
 	app.Get(u, func(c *fiber.Ctx) error {
 		c.Set("Content-Type", "text/html")
