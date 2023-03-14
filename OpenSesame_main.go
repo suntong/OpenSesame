@@ -26,7 +26,7 @@ const maxUint32 = int(^uint32(0))
 
 var uploadPath = "./uploads"
 
-//go:embed static/upload.html
+//go:embed static
 var f embed.FS
 
 ////////////////////////////////////////////////////////////////////////////
