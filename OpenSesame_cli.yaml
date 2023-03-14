@@ -13,9 +13,13 @@ UsageSummary: "TRUE"
 
 UsageLead: "\\nUsage:\\n %s [flags..]\\n\\nFlags:\\n\\n"
 
-UsageEnd: "\\nWill serve the files from the given path via web server\\nof the given port using a one-time random path.\\n- downloads are served from such path + 'd'\\n- upload is also possible from such path + 'u'\\n\\nExit and restart will serve from another random path.\\n\\nThe `-port` / `-path` can be overridden by environment variable(s)\\n `OPENSESAME_PORT` / `OPENSESAME_PATH`\\n"
-
 Options:
+
+  - Name: Host
+    Type: string
+    Flag: host
+    Usage: host name preferred for external access
+    Value: '"localhost"'
 
   - Name: Port
     Type: string
@@ -40,3 +44,5 @@ Options:
     Flag: help
     Usage: show usage help
     Value: false
+
+UsageEnd: "\\nWill serve the files from the given path via web server\\nof the given port using a one-time random path.\\n- downloads are served from such path + 'd'\\n- upload is also possible from such path + 'u'\\n\\nExit and restart will serve from another random path.\\n\\nThe `-host`, `-port` / `-path` can be overridden by environment variable(s)\\n `OPENSESAME_HOST`, `OPENSESAME_PORT` / `OPENSESAME_PATH`\\n"

@@ -17,6 +17,7 @@ const progname = "OpenSesame" // os.Args[0]
 
 // The Options struct defines the structure to hold the commandline values
 type Options struct {
+	Host  string // host name preferred for external access
 	Port  string // listening port
 	Path  string // path to serve files from
 	Fixed int    // fixed web path # to serve files with
@@ -35,6 +36,8 @@ var Opts Options
 func initVars() {
 
 	// set default values for command line parameters
+	flag.StringVar(&Opts.Host, "host", "localhost",
+		"host name preferred for external access")
 	flag.StringVar(&Opts.Port, "port", ":18888",
 		"listening port")
 	flag.StringVar(&Opts.Path, "path", "./",
@@ -48,6 +51,10 @@ func initVars() {
 func initVals() {
 	exists := false
 	// Now override those default values from environment variables
+	if len(Opts.Host) == 0 ||
+		len(os.Getenv("OPENSESAME_HOST")) != 0 {
+		Opts.Host = os.Getenv("OPENSESAME_HOST")
+	}
 	if len(Opts.Port) == 0 ||
 		len(os.Getenv("OPENSESAME_PORT")) != 0 {
 		Opts.Port = os.Getenv("OPENSESAME_PORT")
@@ -62,7 +69,7 @@ func initVals() {
 
 }
 
-const usageSummary = "  -port\tlistening port (OPENSESAME_PORT)\n  -path\tpath to serve files from (OPENSESAME_PATH)\n  -fx\tfixed web path # to serve files with (OPENSESAME_FX)\n  -help\tshow usage help (OPENSESAME_HELP)\n\nDetails:\n\n"
+const usageSummary = "  -host\thost name preferred for external access (OPENSESAME_HOST)\n  -port\tlistening port (OPENSESAME_PORT)\n  -path\tpath to serve files from (OPENSESAME_PATH)\n  -fx\tfixed web path # to serve files with (OPENSESAME_FX)\n  -help\tshow usage help (OPENSESAME_HELP)\n\nDetails:\n\n"
 
 // Usage function shows help on commandline usage
 func Usage() {
@@ -72,6 +79,6 @@ func Usage() {
 	fmt.Fprintf(os.Stderr, usageSummary)
 	flag.PrintDefaults()
 	fmt.Fprintf(os.Stderr,
-		"\nWill serve the files from the given path via web server\nof the given port using a one-time random path.\n- downloads are served from such path + 'd'\n- upload is also possible from such path + 'u'\n\nExit and restart will serve from another random path.\n\nThe `-port` / `-path` can be overridden by environment variable(s)\n `OPENSESAME_PORT` / `OPENSESAME_PATH`\n")
+		"\nWill serve the files from the given path via web server\nof the given port using a one-time random path.\n- downloads are served from such path + 'd'\n- upload is also possible from such path + 'u'\n\nExit and restart will serve from another random path.\n\nThe `-host`, `-port` / `-path` can be overridden by environment variable(s)\n `OPENSESAME_HOST`, `OPENSESAME_PORT` / `OPENSESAME_PATH`\n")
 	os.Exit(0)
 }
