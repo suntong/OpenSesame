@@ -55,8 +55,9 @@ func main() {
 
 	rand.Seed(time.Now().UTC().UnixNano())
 	app := fiber.New(fiber.Config{
-		DisableStartupMessage: true,
-		BodyLimit:             500 * 1024 * 1024,
+		DisableStartupMessage:        true,
+		DisablePreParseMultipartForm: true,
+		StreamRequestBody:            true,
 	})
 
 	// Middleware
