@@ -39,10 +39,26 @@ Options:
     Usage: 'fixed web path # to serve files with'
     Value: 0
 
+  - Name: MediaGalley
+    Type: bool
+    Flag: mg
+    Usage: as media galley backend server
+    Value: false
+
   - Name: Help
     Type: bool
     Flag: help
     Usage: show usage help
     Value: false
 
-UsageEnd: "\\nWill serve the files from the given path via web server\\nof the given port using a one-time random path.\\n- downloads are served from such path + 'd'\\n- upload is also possible from such path + 'u'\\n\\nExit and restart will serve from another random path.\\n\\nThe `-host`, `-port` / `-path` can be overridden by environment variable(s)\\n `OPENSESAME_HOST`, `OPENSESAME_PORT` / `OPENSESAME_PATH`\\n"
+UsageEnd: |
+  
+  Will serve the files from the given path via web server
+  of the given port using a one-time random path.
+  - downloads are served from such path + 'd'
+  - upload is also possible from such path + 'u'
+  
+  Exit and restart will serve from another random path.
+  
+  The '-host', '-port' / '-path' can be overridden by environment variable(s)
+  'OPENSESAME_HOST', 'OPENSESAME_PORT' / 'OPENSESAME_PATH'
