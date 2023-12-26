@@ -77,8 +77,6 @@ func main() {
 	pr := fmt.Sprintf("%d", r)
 	// download & upload path, upload api path
 	d, u, ulapi := "/"+pr+"d", "/"+pr+"u", "/upload"+pr
-	log.Printf("Serving at http://%s%s, with\n\t\t download path %s (http://%[1]s%[2]s%[3]s)\n\t\t upload path %s",
-		Opts.Host, Opts.Port, d, u)
 
 	// read the whole body file
 	b, _ := f.ReadFile("static/upload.html")
@@ -93,6 +91,11 @@ func main() {
 		Browse: true,
 	})
 
+	// url root, http://host:port
+	ur := fmt.Sprintf("http://%[1]s%[2]s", getPublicIPv4(), Opts.Port)
+	d, u = ur+d, ur+u
+	log.Printf("Serving at %s, with\n\t\t download path %s\n\t\t upload path %s",
+		ur, d, u)
 	log.Fatal(app.Listen(Opts.Port))
 }
 
