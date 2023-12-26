@@ -96,6 +96,10 @@ func main() {
 	d, u = ur+d, ur+u
 	log.Printf("Serving at %s, with\n\t\t download path %s\n\t\t upload path %s",
 		ur, d, u)
+	if Opts.MediaGalley {
+		ul := listMedias(Opts.Path, d)
+		log.Printf("Media Galley Files:\n\t\t %s", ul)
+	}
 	log.Fatal(app.Listen(Opts.Port))
 }
 
