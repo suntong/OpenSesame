@@ -92,13 +92,31 @@ func main() {
 	})
 
 	// url root, http://host:port
-	ur := fmt.Sprintf("http://%[1]s%[2]s", getPublicIPv4(), Opts.Port)
+	externalIP := getPublicIPv4()
+	ur := fmt.Sprintf("http://%[1]s%[2]s", externalIP, Opts.Port)
 	d, u = ur+d, ur+u
 	log.Printf("Serving at %s, with\n\t\t download path %s\n\t\t upload path %s",
 		ur, d, u)
 	if Opts.MediaGalley {
 		ul := listMedias(Opts.Path, d)
-		log.Printf("Media Galley Files:\n\t\t %s", ul)
+
+		const mediaFile = "/tmp/media-galley.ts"
+		// output media galley info to file
+		file, err := os.Create(mediaFile)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		defer func() {
+			if err := file.Close(); err != nil {
+				log.Fatal(err)
+			}
+		}()
+
+		fmt.Fprintf(file, "export const externalIP = '%s'\n\n", externalIP)
+		fmt.Fprintf(file, "export const mediaGalley = %s\n", ul)
+
+		log.Printf("Media Galley File has been created at: %s\n", mediaFile)
 	}
 	log.Fatal(app.Listen(Opts.Port))
 }
