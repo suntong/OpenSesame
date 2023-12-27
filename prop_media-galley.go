@@ -9,7 +9,7 @@ import (
 )
 
 // ".JPG", ".MOV" is for PowerShot SX40
-var validMedias = []string{".JPG", ".MOV", ".jpg", ".mov", ".mp4"}
+var validMedias = []string{".JPG", ".MOV", ".jpg", ".png", ".mov", ".mp4"}
 
 // dirPath: Directory to walk through
 func listMedias(dirPath, p string) string {
