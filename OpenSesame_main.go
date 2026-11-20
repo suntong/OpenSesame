@@ -91,12 +91,13 @@ func main() {
 		Browse: true,
 	}))
 
-	// url root, http://host:port
-	externalIP := getPublicIPv4()
+	// url root (ur), http://host:port, and url local (ul)
+	localIP, externalIP := getLocalIPv4(), getPublicIPv4()
 	ur := fmt.Sprintf("http://%[1]s%[2]s", externalIP, Opts.Port)
+	ul := fmt.Sprintf("http://%[1]s%[2]s", localIP, Opts.Port)
 	d, u = ur+d, ur+u
-	log.Printf("Serving from %s at %s, with\n\t\t download path %s\n\t\t upload path %s",
-		Opts.Path, ur, d, u)
+	log.Printf("Serving from %s at %s (%s), with\n\t\t download path %s\n\t\t upload path %s",
+		Opts.Path, ur, ul, d, u)
 	if Opts.MediaGalley {
 		ul := listMedias(Opts.Path, d)
 
