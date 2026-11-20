@@ -3,7 +3,7 @@ name: build
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
     tags:
       - 'v*'
   pull_request:
@@ -17,30 +17,16 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       -
         name: Set up Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v7
         with:
-          go-version: 1.21
-
-      -
-        name: Install Cloudsmith CLI
-        run: pip install --upgrade cloudsmith-cli
-        # Cloudsmith CLI tooling for pushing releases
-        # See https://help.cloudsmith.io/docs/cli
-
-      -
-        name: Cache Go modules
-        uses: actions/cache@v1
-        # Do before go get
-        with:
-          path: ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
+          # track the toolchain required by go.mod
+          go-version-file: go.mod
+          # setup-go caches modules & build artifacts itself, keyed on go.sum
 
       -
         name: Tests
@@ -50,13 +36,23 @@ jobs:
 
       -
         name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v2
+        uses: goreleaser/goreleaser-action@v7
         if: success() && startsWith(github.ref, 'refs/tags/')
         with:
           version: latest
-          args: release --rm-dist
+          args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      -
+        name: Install Cloudsmith CLI
+        if: success() && startsWith(github.ref, 'refs/tags/')
+        uses: cloudsmith-io/cloudsmith-cli-action@v3
+        with:
+          api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
+          cli-version: 'latest'
+        # Cloudsmith CLI tooling for pushing releases
+        # See https://help.cloudsmith.io/docs/cli
 
       # Publish to cloudsmith repo
       -
