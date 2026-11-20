@@ -16,5 +16,39 @@
       <input class="input file-input" type="file" name="file" multiple />
       <button class="button" type="submit">Submit</button>
     </form>
+    <div id="upload-status" style="margin-top: 8px; font-family: monospace;"></div>
+    <script>
+      document.getElementById('form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var form = e.target;
+        var formData = new FormData(form);
+        var xhr = new XMLHttpRequest();
+        var statusDiv = document.getElementById('upload-status');
+
+        statusDiv.textContent = 'Uploading...';
+
+        xhr.upload.addEventListener('progress', function(event) {
+          if (event.lengthComputable) {
+            var percent = Math.round((event.loaded / event.total) * 100);
+            statusDiv.textContent = 'Uploading: ' + percent + '%';
+          }
+        });
+
+        xhr.addEventListener('load', function() {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            statusDiv.textContent = 'Upload successful!';
+          } else {
+            statusDiv.textContent = 'Upload failed with status: ' + xhr.status;
+          }
+        });
+
+        xhr.addEventListener('error', function() {
+          statusDiv.textContent = 'Network error during upload.';
+        });
+
+        xhr.open('POST', form.action);
+        xhr.send(formData);
+      });
+    </script>
   </body>
 </html>

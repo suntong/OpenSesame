@@ -37,7 +37,7 @@ func uploadHandler(c fiber.Ctx) error {
 				fmt.Println("Done")
 				break
 			} else {
-				fmt.Println("Other type of error", err)
+				log.Println("[OpenSesame:upload] Other type of error:", err)
 				return nil
 			}
 		}
@@ -46,7 +46,7 @@ func uploadHandler(c fiber.Ctx) error {
 		fmt.Printf("\t\t ")
 		saving, err := os.Create(fmt.Sprintf("%s/%s", uploadPath, part.FileName()))
 		if err != nil {
-			fmt.Println("not able to create file", err)
+			log.Println("not able to create file", err)
 			return nil
 		}
 		defer saving.Close()
@@ -56,17 +56,24 @@ func uploadHandler(c fiber.Ctx) error {
 		buffer := make([]byte, 1024*1024)
 		for {
 			read, err := part.Read(buffer)
-			temp.Write(buffer[:read])
+
+			// 1. Always write the bytes that were successfully read, if any
+			if read > 0 {
+				temp.Write(buffer[:read])
+			}
 			if ii%5000 == 0 {
 				fmt.Printf(".")
 			}
 			ii++
-			if err == io.EOF {
+
+			// 2. Handle ALL errors after processing the read bytes
+			if err == io.EOF || err == io.ErrUnexpectedEOF {
 				//fmt.Println("EOF", err, read)
 				break
 			}
 			if err != nil {
-				fmt.Println("Other type of error while saving", err)
+				log.Println("[OpenSesame:upload] Error while saving:", err)
+				break
 			}
 		}
 		temp.Flush()
