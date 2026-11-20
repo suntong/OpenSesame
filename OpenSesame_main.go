@@ -13,9 +13,10 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/logger"
+	"github.com/gofiber/fiber/v3/middleware/recover"
+	"github.com/gofiber/fiber/v3/middleware/static"
 )
 
 ////////////////////////////////////////////////////////////////////////////
@@ -55,7 +56,6 @@ func main() {
 
 	rand.Seed(time.Now().UTC().UnixNano())
 	app := fiber.New(fiber.Config{
-		DisableStartupMessage:        true,
 		DisablePreParseMultipartForm: true,
 		StreamRequestBody:            true,
 	})
@@ -64,7 +64,7 @@ func main() {
 	app.Use(recover.New())
 	app.Use(logger.New())
 
-	app.Get("/", func(c *fiber.Ctx) error {
+	app.Get("/", func(c fiber.Ctx) error {
 		return c.SendString("Hello World 👋, Private Only!")
 	})
 	app.Get("/healthz", healthzHandler)
@@ -81,15 +81,15 @@ func main() {
 	// read the whole body file
 	b, _ := f.ReadFile("static/upload.html")
 	b = regexp.MustCompile(`RAND_NUM`).ReplaceAll(b, []byte(pr))
-	app.Get(u, func(c *fiber.Ctx) error {
+	app.Get(u, func(c fiber.Ctx) error {
 		c.Set("Content-Type", "text/html")
 		return c.Send(b)
 	})
 	app.Post(ulapi, uploadHandler)
 
-	app.Static(d, Opts.Path, fiber.Static{
+	app.Use(d, static.New(Opts.Path, static.Config{
 		Browse: true,
-	})
+	}))
 
 	// url root, http://host:port
 	externalIP := getPublicIPv4()
@@ -118,7 +118,9 @@ func main() {
 
 		log.Printf("Media Galley File has been created at: %s\n", mediaFile)
 	}
-	log.Fatal(app.Listen(Opts.Port))
+	log.Fatal(app.Listen(Opts.Port, fiber.ListenConfig{
+		DisableStartupMessage: true,
+	}))
 }
 
 //==========================================================================

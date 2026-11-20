@@ -5,10 +5,10 @@ import (
 	"log"
 	"time"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
-func healthzHandler(c *fiber.Ctx) error {
+func healthzHandler(c fiber.Ctx) error {
 	started := time.Now()
 	duration := time.Since(started)
 	if duration.Seconds() > 10 {

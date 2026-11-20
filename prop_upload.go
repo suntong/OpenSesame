@@ -9,10 +9,10 @@ import (
 	"mime/multipart"
 	"os"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
-func uploadHandler(c *fiber.Ctx) error {
+func uploadHandler(c fiber.Ctx) error {
 	// Parse the multipart form ourself
 	v := c.Get("Content-Type")
 	if v == "" {
@@ -27,7 +27,8 @@ func uploadHandler(c *fiber.Ctx) error {
 		return nil
 	}
 
-	reader := multipart.NewReader(c.Context().RequestBodyStream(), boundary)
+	// fiber v3: Ctx.Context() is a context.Context, the fasthttp request ctx is Ctx.RequestCtx()
+	reader := multipart.NewReader(c.RequestCtx().RequestBodyStream(), boundary)
 	// Loop through parts/files
 	for {
 		part, err := reader.NextPart()
