@@ -3,7 +3,7 @@ name: Tidy
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
     paths:
       - '.github/workflows/gotidy.yml'
       - 'go.mod'
@@ -15,12 +15,13 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v7
       -
         name: Set up Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v7
         with:
-          go-version: 1.13
+          # track the toolchain required by go.mod
+          go-version-file: go.mod
       -
         name: Tidy
         run: |
