@@ -11,7 +11,6 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
-	"time"
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/logger"
@@ -54,7 +53,6 @@ func main() {
 		log.Fatal("Error ", err)
 	}
 
-	rand.Seed(time.Now().UTC().UnixNano())
 	app := fiber.New(fiber.Config{
 		DisablePreParseMultipartForm: true,
 		StreamRequestBody:            true,

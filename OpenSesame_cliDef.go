@@ -85,6 +85,8 @@ func initVals() {
 const usageSummary = "  -host\thost name preferred for external access (OPENSESAME_HOST)\n  -port\tlistening port (OPENSESAME_PORT)\n  -path\tpath to serve files from (OPENSESAME_PATH)\n  -fx\tfixed web path # to serve files with (OPENSESAME_FX)\n  -mg\tas media galley backend server (OPENSESAME_MG)\n  -help\tshow usage help (OPENSESAME_HELP)\n\nDetails:\n\n"
 
 // Usage function shows help on commandline usage
+//
+//nolint:staticcheck // fmt.Fprintf does not add trainling \n
 func Usage() {
 	fmt.Fprintf(os.Stderr,
 		"\nUsage:\n %s [flags..]\n\nFlags:\n\n",

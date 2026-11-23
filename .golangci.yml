@@ -1,0 +1,17 @@
+version: 2
+
+linters:
+  settings:
+    errcheck:
+      exclude-functions:
+        - fmt.Fprintf
+        - fmt.Fprintln
+        - fmt.Fprint
+        - fmt.Printf
+        - fmt.Println
+        - fmt.Print
+        - (*os.File).Close
+        - (net.Conn).Close
+        - (*os.File).Write
+        - (*bufio.Writer).Write
+        - (*bufio.Writer).Flush

@@ -46,7 +46,7 @@ func getPublicIPv4() string {
 	}
 
 	buffer := make([]byte, 4096)
-	n, err := conn.Read(buffer)
+	n, _ := conn.Read(buffer)
 
 	// Splitting the headers and body
 	headersAndBody := strings.SplitN(string(buffer[:n]), "\r\n\r\n", 2)

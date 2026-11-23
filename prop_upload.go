@@ -19,6 +19,7 @@ func uploadHandler(c fiber.Ctx) error {
 		return nil
 	}
 	d, params, err := mime.ParseMediaType(v)
+	//nolint:staticcheck // no need to apply De Morgan's law
 	if err != nil || !(d == "multipart/form-data" || d == "multipart/mixed") {
 		return nil
 	}
